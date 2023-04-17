@@ -119,7 +119,7 @@ async def bday(ctx, action=None, bday=None):
             embed = discord.Embed(
                 title="Неправильный формат данных. Учтите, что формат должен быть `число.месяц`. Пример: `!bday add 01.01`.")
             embed.set_author(name="Что-то пошло не так...",
-                             icon_url="https://media.discordapp.net/attachments/782323112699887657/1097491978901540894/nook_inc_negative.png?width=670&height=670")
+                             icon_url=config.NookIncNegative)
             embed.set_footer(text=f"Выполнил: {ctx.author}")
             await ctx.send(embed=embed)
             return
@@ -128,7 +128,7 @@ async def bday(ctx, action=None, bday=None):
             json.dump(bdays, f)
         embed = discord.Embed(title="Дата рождения добавлена в ваш паспорт!")
         embed.set_author(name="Изменения в паспорт внесены успешно!",
-                         icon_url="https://media.discordapp.net/attachments/782323112699887657/1097489775210012802/Nook_Inc.png?width=670&height=670")
+                         icon_url=config.NookIncPositive)
         embed.set_footer(text=f"Выполнил: {ctx.author}")
         await ctx.send(embed=embed)
     elif action == 'edit':
@@ -136,7 +136,7 @@ async def bday(ctx, action=None, bday=None):
             embed = discord.Embed(
                 title="Неправильный формат данных. Учтите, что формат должен быть `число.месяц`. Пример: `!bday add 01.01`.")
             embed.set_author(name="Что-то пошло не так...",
-                             icon_url="https://media.discordapp.net/attachments/782323112699887657/1097491978901540894/nook_inc_negative.png?width=670&height=670")
+                             icon_url=config.NookIncNegative)
             embed.set_footer(text=f"Выполнил: {ctx.author}")
             await ctx.send(embed=embed)
             return
@@ -144,7 +144,7 @@ async def bday(ctx, action=None, bday=None):
             embed = discord.Embed(
                 title="Вы ещё не указали свой день рождения. Чтобы это сделать, вы можете воспользоваться командой `!bday add`")
             embed.set_author(name="Что-то пошло не так...",
-                             icon_url="https://media.discordapp.net/attachments/782323112699887657/1097491978901540894/nook_inc_negative.png?width=670&height=670")
+                             icon_url=config.NookIncNegative)
             embed.set_footer(text=f"Выполнил: {ctx.author}")
             await ctx.send(embed=embed)
             return
@@ -153,7 +153,7 @@ async def bday(ctx, action=None, bday=None):
             json.dump(bdays, f)
         embed = discord.Embed(title="Вы успешно изменили свою дату рождения")
         embed.set_author(name="Изменения в паспорт внесены успешно!",
-                         icon_url="https://media.discordapp.net/attachments/782323112699887657/1097491978326900766/Nook_Inc_neutral.png?width=670&height=670")
+                         icon_url=config.NookIncNeutral)
         embed.set_footer(text=f"Выполнил: {ctx.author}")
         await ctx.send(embed=embed)
     elif action == 'delete':
@@ -161,7 +161,7 @@ async def bday(ctx, action=None, bday=None):
             embed = discord.Embed(
                 title="Вы ещё не указали свой день рождения. Чтобы это сделать, вы можете воспользоваться командой `!bday add`")
             embed.set_author(name="Что-то пошло не так...",
-                             icon_url="https://media.discordapp.net/attachments/782323112699887657/1097491978901540894/nook_inc_negative.png?width=670&height=670")
+                             icon_url=config.NookIncNegative)
             embed.set_footer(text=f"Выполнил: {ctx.author}")
             await ctx.send(embed=embed)
             return
@@ -170,14 +170,14 @@ async def bday(ctx, action=None, bday=None):
             json.dump(bdays, f)
         embed = discord.Embed(title="Вы успешно удалили свою дату рождения!")
         embed.set_author(name="Изменения в паспорт внесены успешно!",
-                         icon_url="https://media.discordapp.net/attachments/782323112699887657/1097489775210012802/Nook_Inc.png?width=670&height=670")
+                         icon_url=config.NookIncPositive)
         embed.set_footer(text=f"Выполнил: {ctx.author}")
         await ctx.send(embed=embed)
     else:
         embed = discord.Embed(
             title="Неправильное действие, укажите, что конкретно вы хотите, `add` `edit` `delete`")
         embed.set_author(name="Что-то пошло не так...",
-                         icon_url="https://media.discordapp.net/attachments/782323112699887657/1097491978901540894/nook_inc_negative.png?width=670&height=670")
+                         icon_url=config.NookIncNegative)
         embed.set_footer(text=f"Выполнил: {ctx.author}")
         await ctx.send(embed=embed)
 
@@ -191,7 +191,7 @@ async def passport(ctx, member: discord.Member = None):
     user_avatar_url = user.avatar.url if user.avatar else user.default_avatar.url
     embed = discord.Embed(title=f"Паспорт пользователя {user.display_name}", color=random.choice(config.colors))
     embed.set_author(name="NookLink",
-                     icon_url="https://media.discordapp.net/attachments/1093486430967304223/1097524248039411772/Nook_Inc_passport.png?width=670&height=670")
+                     icon_url=config.NookLinkImg)
     embed.add_field(name="Имя пользователя:", value=f'{user.name}#{user.discriminator}', inline=True)
     if str(user.id) in bdays:
 

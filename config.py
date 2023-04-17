@@ -2,12 +2,21 @@ import random
 import json
 from datetime import datetime
 
-TOKEN = 'TOKEN HERE'
+TOKEN = 'YOUR TOKEN HERE'
 
 BROADCAST_CHANNEL_ID = '1093486430967304223'
 DODOAIRLINES_CHANNEL_ID = '973616908106604578'
 
 OWNER_ID = '298410723586080768'
+
+NookLinkImg = 'https://media.discordapp.net/attachments/1093486430967304223/1097524248039411772/Nook_Inc_passport.png' \
+              '?width=670&height=670 '
+NookIncNegative = 'https://media.discordapp.net/attachments/782323112699887657/1097491978901540894/nook_inc_negative' \
+                  '.png?width=670&height=670 '
+NookIncNeutral = 'https://media.discordapp.net/attachments/782323112699887657/1097491978326900766/Nook_Inc_neutral' \
+                 '.png?width=670&height=670 '
+NookIncPositive = 'https://media.discordapp.net/attachments/782323112699887657/1097489775210012802/Nook_Inc.png?width' \
+                  '=670&height=670 '
 
 months = {
     1: 'января',
