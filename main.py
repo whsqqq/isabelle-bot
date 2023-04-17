@@ -13,45 +13,45 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 bot.remove_command("help")
 
-# Загрузка данных из JSON файла
+# Loading data from JSON file with holiday phrases
 with open('text/isabelle_holiday_phrases.json', 'r', encoding='utf-8') as f:
     holiday_phrases = json.load(f)
 
-# Загрузка данных из JSON файла
+# Loading data from JSON file with birthday dates
 with open("text/bdays2.json", "r") as f:
     bdays = json.load(f)
 
-# Загрузка данных из TXT файла с сообщениями
+# Loading data from TXT file with random phrases
 with open('text/isabelle_random_phrases.txt', 'r', encoding='utf-8') as f:
     random_phrases = f.readlines()
 
-# Загрузка данных из TXT файла с приветствиями
+# Loading data from TXT file with random greetings
 with open('text/greetings.txt', 'r', encoding='utf-8') as f:
     random_greetings = f.readlines()
 
-# Открываем файл с обычными сообщениями
+# Loading data from TXT file which appears if no users has birthday
 with open("text/no_bday.txt", "r") as f:
     no_bday_phrases = f.readlines()
 
 
-# Функция для отправки сообщения в Бюро Услуг
+# Function that broadcasts message to Resident Services
 async def send_broadcast_message(message):
     channel = bot.get_channel(int(config.BROADCAST_CHANNEL_ID))
     await channel.send(message)
 
 
-# Функция для отправки сообщений
+# Function that just send messages lol
 async def send_message(channel, message):
     await channel.send(message)
 
 
-# Функция для отправки случайного сообщения в случае того, что дня рождения ни у кого нет
+# Function that sends random message if no one has birthday
 async def send_random_message(channel):
     message = random.choice(no_bday_phrases)
     await channel.send(message)
 
 
-# Функция, которая будет выполняться каждый день в 9 утра
+# Daily Broadcast to Resident Services
 async def send_daily_message():
     while True:
         now = datetime.now()
@@ -97,6 +97,7 @@ async def send_daily_message():
         await asyncio.sleep(60)
 
 
+# Recreated Help Command
 @bot.group(invoke_without_command=True)
 async def help(ctx):
     embed = discord.Embed(title="Вот что у меня для вас есть!",
@@ -107,7 +108,7 @@ async def help(ctx):
     await ctx.send(embed=embed)
 
 
-# Команда, которая позволяет добавить, изменить или удалить свою дату рождения
+# Command that can add/edit/delete your birthday date
 @bot.command()
 async def bday(ctx, action=None, bday=None):
     user_id = str(ctx.author.id)
@@ -181,6 +182,7 @@ async def bday(ctx, action=None, bday=None):
         await ctx.send(embed=embed)
 
 
+# Command that shows profile
 @bot.command()
 async def passport(ctx, member: discord.Member = None):
     with open("text/bdays2.json", "r") as f:
@@ -202,6 +204,7 @@ async def passport(ctx, member: discord.Member = None):
     await ctx.send(embed=embed)
 
 
+# You can talk from bot perspective
 @bot.command()
 async def say(ctx):
     if ctx.message.author.id != int(config.OWNER_ID):
@@ -213,6 +216,7 @@ async def say(ctx):
     await ctx.message.delete()
 
 
+# Ping lol
 @bot.command()
 async def ping(ctx):
     latency = float('{:.3f}'.format(bot.latency))
@@ -223,7 +227,8 @@ async def ping(ctx):
 @bot.event
 async def on_member_join(member):
     channel = bot.get_channel(config.DODOAIRLINES_CHANNEL_ID)
-    await channel.send(f'Приветствую, <@{member.id}>! Рады тебя видеть! Ознакомься с чатами слева, там ты найдешь правила, объявления и многое другое! Приятного времяпровождения! ☀️😺🐾')
+    await channel.send(
+        f'Приветствую, <@{member.id}>! Рады тебя видеть! Ознакомься с чатами слева, там ты найдешь правила, объявления и многое другое! Приятного времяпровождения! ☀️😺🐾')
 
 
 @bot.event
@@ -232,7 +237,6 @@ async def on_member_remove(member):
     await channel.send(f'Прощай, <@{member.id}> Возвращайся, будем ждать!😘🐾')
 
 
-# Обработчик события "ready"
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}')
