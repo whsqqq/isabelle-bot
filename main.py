@@ -18,7 +18,7 @@ with open('text/isabelle_holiday_phrases.json', 'r', encoding='utf-8') as f:
     holiday_phrases = json.load(f)
 
 # Loading data from JSON file with birthday dates
-with open("text/bdays2.json", "r") as f:
+with open("text/bdays.json", "r") as f:
     bdays = json.load(f)
 
 # Loading data from TXT file with random phrases
@@ -112,8 +112,8 @@ async def help(ctx):
 @bot.command()
 async def bday(ctx, action=None, bday=None):
     user_id = str(ctx.author.id)
-    with open('text/bdays2.json', 'r') as f:
-        bdays = json.load(f)
+    with open('text/bdays.json', 'r') as f:
+        bday_data = json.load(f)
     if action == 'add':
         if not bday or not re.match(r'^\d{1,2}\.\d{1,2}$', bday):
             embed = discord.Embed(
@@ -123,9 +123,9 @@ async def bday(ctx, action=None, bday=None):
             embed.set_footer(text=f"Выполнил: {ctx.author}")
             await ctx.send(embed=embed)
             return
-        bdays[user_id] = bday
-        with open('text/bdays2.json', 'w') as f:
-            json.dump(bdays, f)
+        bday_data[user_id] = bday
+        with open('text/bdays.json', 'w') as f:
+            json.dump(bday_data, f)
         embed = discord.Embed(title="Дата рождения добавлена в ваш паспорт!")
         embed.set_author(name="Изменения в паспорт внесены успешно!",
                          icon_url=config.NookIncPositive)
@@ -140,7 +140,7 @@ async def bday(ctx, action=None, bday=None):
             embed.set_footer(text=f"Выполнил: {ctx.author}")
             await ctx.send(embed=embed)
             return
-        if user_id not in bdays:
+        if user_id not in bday_data:
             embed = discord.Embed(
                 title="Вы ещё не указали свой день рождения. Чтобы это сделать, вы можете воспользоваться командой `!bday add`")
             embed.set_author(name="Что-то пошло не так...",
@@ -148,16 +148,16 @@ async def bday(ctx, action=None, bday=None):
             embed.set_footer(text=f"Выполнил: {ctx.author}")
             await ctx.send(embed=embed)
             return
-        bdays[user_id] = bday
-        with open('text/bdays2.json', 'w') as f:
-            json.dump(bdays, f)
+        bday_data[user_id] = bday
+        with open('text/bdays.json', 'w') as f:
+            json.dump(bday_data, f)
         embed = discord.Embed(title="Вы успешно изменили свою дату рождения")
         embed.set_author(name="Изменения в паспорт внесены успешно!",
                          icon_url=config.NookIncNeutral)
         embed.set_footer(text=f"Выполнил: {ctx.author}")
         await ctx.send(embed=embed)
     elif action == 'delete':
-        if user_id not in bdays:
+        if user_id not in bday_data:
             embed = discord.Embed(
                 title="Вы ещё не указали свой день рождения. Чтобы это сделать, вы можете воспользоваться командой `!bday add`")
             embed.set_author(name="Что-то пошло не так...",
@@ -165,10 +165,83 @@ async def bday(ctx, action=None, bday=None):
             embed.set_footer(text=f"Выполнил: {ctx.author}")
             await ctx.send(embed=embed)
             return
-        del bdays[user_id]
-        with open('text/bdays2.json', 'w') as f:
-            json.dump(bdays, f)
+        del bday_data[user_id]
+        with open('text/bdays.json', 'w') as f:
+            json.dump(bday_data, f)
         embed = discord.Embed(title="Вы успешно удалили свою дату рождения!")
+        embed.set_author(name="Изменения в паспорт внесены успешно!",
+                         icon_url=config.NookIncPositive)
+        embed.set_footer(text=f"Выполнил: {ctx.author}")
+        await ctx.send(embed=embed)
+    else:
+        embed = discord.Embed(
+            title="Неправильное действие, укажите, что конкретно вы хотите, `add` `edit` `delete`")
+        embed.set_author(name="Что-то пошло не так...",
+                         icon_url=config.NookIncNegative)
+        embed.set_footer(text=f"Выполнил: {ctx.author}")
+        await ctx.send(embed=embed)
+
+
+@bot.command()
+async def sw(ctx, action=None, sw=None):
+    user_id = str(ctx.author.id)
+    with open('text/sw.json', 'r') as f:
+        sw_data = json.load(f)
+    if action == 'add':
+        if not sw or not isinstance(sw, str) or not re.match(config.sw_pattern, sw):
+            embed = discord.Embed(
+                title="Неправильный формат данных. Учтите, что формат должен быть `XXXX-XXXX-XXXX`. Пример: `!sw add 1234-1234-1234`.")
+            embed.set_author(name="Что-то пошло не так...",
+                             icon_url=config.NookIncNegative)
+            embed.set_footer(text=f"Выполнил: {ctx.author}")
+            await ctx.send(embed=embed)
+            return
+        sw_data[user_id] = sw
+        with open('text/sw.json', 'w') as f:
+            json.dump(sw_data, f)
+        embed = discord.Embed(title="Код друга добавлен в ваш паспорт!")
+        embed.set_author(name="Изменения в паспорт внесены успешно!",
+                         icon_url=config.NookIncPositive)
+        embed.set_footer(text=f"Выполнил: {ctx.author}")
+        await ctx.send(embed=embed)
+    elif action == 'edit':
+        if not sw or not isinstance(sw, str) or not re.match(config.sw_pattern, sw):
+            embed = discord.Embed(
+                title="Неправильный формат данных. Учтите, что формат должен быть `число.месяц`. Пример: `!sw edit 1234-1234-1234`.")
+            embed.set_author(name="Что-то пошло не так...",
+                             icon_url=config.NookIncNegative)
+            embed.set_footer(text=f"Выполнил: {ctx.author}")
+            await ctx.send(embed=embed)
+            return
+        if user_id not in sw_data:
+            embed = discord.Embed(
+                title="Вы ещё не указали свой код друга. Чтобы это сделать, вы можете воспользоваться командой `!sw add`")
+            embed.set_author(name="Что-то пошло не так...",
+                             icon_url=config.NookIncNegative)
+            embed.set_footer(text=f"Выполнил: {ctx.author}")
+            await ctx.send(embed=embed)
+            return
+        sw_data[user_id] = sw
+        with open('text/sw.json', 'w') as f:
+            json.dump(sw_data, f)
+        embed = discord.Embed(title="Вы успешно изменили свой код друга!")
+        embed.set_author(name="Изменения в паспорт внесены успешно!",
+                         icon_url=config.NookIncNeutral)
+        embed.set_footer(text=f"Выполнил: {ctx.author}")
+        await ctx.send(embed=embed)
+    elif action == 'delete':
+        if user_id not in sw_data:
+            embed = discord.Embed(
+                title="Вы ещё не указали свой код друга. Чтобы это сделать, вы можете воспользоваться командой `!sw add`")
+            embed.set_author(name="Что-то пошло не так...",
+                             icon_url=config.NookIncNegative)
+            embed.set_footer(text=f"Выполнил: {ctx.author}")
+            await ctx.send(embed=embed)
+            return
+        del sw_data[user_id]
+        with open('text/sw.json', 'w') as f:
+            json.dump(sw_data, f)
+        embed = discord.Embed(title="Вы успешно удалили свой код друга!")
         embed.set_author(name="Изменения в паспорт внесены успешно!",
                          icon_url=config.NookIncPositive)
         embed.set_footer(text=f"Выполнил: {ctx.author}")
@@ -185,8 +258,10 @@ async def bday(ctx, action=None, bday=None):
 # Command that shows profile
 @bot.command()
 async def passport(ctx, member: discord.Member = None):
-    with open("text/bdays2.json", "r") as f:
+    with open("text/bdays.json", "r") as f:
         bdays = json.load(f)
+    with open('text/sw.json', 'r') as f:
+        sw_data = json.load(f)
     user = ctx.author if not member else member
     user_avatar_url = user.avatar.url if user.avatar else user.default_avatar.url
     embed = discord.Embed(title=f"Паспорт пользователя {user.display_name}", color=random.choice(config.colors))
@@ -198,6 +273,11 @@ async def passport(ctx, member: discord.Member = None):
         embed.add_field(name="Дата рождения:", value=bdays[str(user.id)], inline=True)
     else:
         embed.add_field(name="Дата Рождения", value="Не указано", inline=True)
+    if str(user.id) in sw_data:
+
+        embed.add_field(name="Код друга:", value=f'SW-{sw_data[str(user.id)]}', inline=True)
+    else:
+        embed.add_field(name="Код друга:", value="Не указано", inline=True)
     embed.add_field(name="Прилетел на остров Юки:", value=user.joined_at.strftime("%m/%d/%Y"), inline=True)
     embed.add_field(name="Роли:", value=", ".join([role.mention for role in user.roles[1:]]), inline=True)
     embed.set_thumbnail(url=user_avatar_url)
@@ -243,5 +323,6 @@ async def on_member_remove(member):
 async def on_ready():
     print(f'Logged in as {bot.user}')
     bot.loop.create_task(send_daily_message())  # Создание объекта Task для отправки сообщений каждый день
+
 
 bot.run(config.TOKEN)

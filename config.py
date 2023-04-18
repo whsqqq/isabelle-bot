@@ -2,7 +2,7 @@ import random
 import json
 from datetime import datetime
 
-TOKEN = 'YOUR TOKEN HERE'
+TOKEN = 'MTA5NzE1MjUyNzE5MzA5NjI4Mg.GA66PA.SGrD5xym3zHU8x6WbRDjdhuoHKWxqD5EAqVOdQ'
 
 BROADCAST_CHANNEL_ID = '951803540228177984'
 DODOAIRLINES_CHANNEL_ID = '973616908106604578'
@@ -39,7 +39,7 @@ with open('text/isabelle_holiday_phrases.json', 'r', encoding='utf-8') as f:
     holiday_phrases = json.load(f)
 
 # Loading data from JSON file
-with open("text/bdays2.json", "r") as f:
+with open("text/bdays.json", "r") as f:
     bdays = json.load(f)
 
 # Loading data from TXT file with random phrases
