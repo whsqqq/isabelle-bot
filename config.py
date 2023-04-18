@@ -33,6 +33,8 @@ months = {
     12: 'декабря'
 }
 
+sw_pattern = r'^\d{4}-\d{4}-\d{4}$'
+
 colors = [0x9dffb0, 0x81f1f7, 0xfffffa, 0xc48d3f, 0xfff563, 0x84d9e0]
 
 with open('text/isabelle_holiday_phrases.json', 'r', encoding='utf-8') as f:
