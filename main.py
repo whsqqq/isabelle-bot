@@ -104,6 +104,8 @@ async def help(ctx):
                           color=random.choice(config.colors))
     embed.add_field(name="День рождения",
                     value="`!bday add 01.01` - Добавить \n`!bday edit 20.12` - Изменить \n `!bday delete` - Удалить")
+    embed.add_field(name="Код друга",
+                    value="`!sw add 1234-1234-1234` - Добавить \n`!sw edit 1234-1234-1234` - Изменить \n `!sw delete` - Удалить")
     embed.add_field(name="Посмотреть паспорт", value="`!passport`")
     await ctx.send(embed=embed)
 
