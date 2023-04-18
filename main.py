@@ -55,7 +55,7 @@ async def send_random_message(channel):
 async def send_daily_message():
     while True:
         now = datetime.now()
-        if now.hour == 14 and now.minute == 17:
+        if now.hour == 9 and now.minute == 0:
             holiday = config.is_holiday_today()
             if holiday:
                 # Проверяем, есть ли пользователи, у которых сегодня день рождения
