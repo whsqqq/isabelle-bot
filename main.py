@@ -229,18 +229,19 @@ async def on_member_join(member):
     channel = bot.get_channel(config.DODOAIRLINES_CHANNEL_ID)
     await channel.send(
         f'Приветствую, <@{member.id}>! Рады тебя видеть! Ознакомься с чатами слева, там ты найдешь правила, объявления и многое другое! Приятного времяпровождения! ☀️😺🐾')
+    print(f'{member} joined server')
 
 
 @bot.event
 async def on_member_remove(member):
     channel = bot.get_channel(config.DODOAIRLINES_CHANNEL_ID)
     await channel.send(f'Прощай, <@{member.id}> Возвращайся, будем ждать!😘🐾')
+    print(f'{member} left server')
 
 
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}')
     bot.loop.create_task(send_daily_message())  # Создание объекта Task для отправки сообщений каждый день
-
 
 bot.run(config.TOKEN)
