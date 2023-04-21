@@ -19,7 +19,7 @@ class Birthday(commands.Cog):
         with open('text/bdays.json', 'r') as f:
             bday_data = json.load(f)
         if action == 'add':
-            if not bday or not re.match(r'^\d{1,2}\.\d{1,2}$', bday):
+            if not bday or not re.match(r'^\d{1,2}\.\d{1,2}$', bday) or int(bday.split(".")[0]) > 31 or int(bday.split(".")[1]) > 12:
                 embed = discord.Embed(
                     title="Неправильный формат данных. Учтите, что формат должен быть `число.месяц`. Пример: `!bday add 01.01`.")
                 embed.set_author(name="Что-то пошло не так...",
@@ -36,7 +36,7 @@ class Birthday(commands.Cog):
             embed.set_footer(text=f"Выполнил: {ctx.author}")
             await ctx.send(embed=embed)
         elif action == 'edit':
-            if not bday or not re.match(r'^\d{1,2}\.\d{1,2}$', bday):
+            if not bday or not re.match(r'^\d{1,2}\.\d{1,2}$', bday) or int(bday.split(".")[0]) > 31 or int(bday.split(".")[1]) > 12:
                 embed = discord.Embed(
                     title="Неправильный формат данных. Учтите, что формат должен быть `число.месяц`. Пример: `!bday add 01.01`.")
                 embed.set_author(name="Что-то пошло не так...",
