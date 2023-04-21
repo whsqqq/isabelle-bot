@@ -85,6 +85,10 @@ class Birthday(commands.Cog):
             embed.set_footer(text=f"Выполнил: {ctx.author}")
             await ctx.send(embed=embed)
 
+        @commands.Cog.listener()
+        async def on_ready(self):
+            print('Cog "Birthday" loaded')
+
 
 async def setup(bot):
     await bot.add_cog(Birthday(bot))

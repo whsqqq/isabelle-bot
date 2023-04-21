@@ -34,6 +34,9 @@ class Miscellaneous(commands.Cog):
         await ctx.send(message)
         await ctx.message.delete()
 
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print('Cog "Misc" loaded')
 
 async def setup(bot):
     await bot.add_cog(Miscellaneous(bot))

@@ -40,6 +40,10 @@ class Passport(commands.Cog):
         embed.set_thumbnail(url=user_avatar_url)
         await ctx.send(embed=embed)
 
+        @commands.Cog.listener()
+        async def on_ready(self):
+            print('Cog "Passport" loaded')
+
 
 async def setup(bot):
     await bot.add_cog(Passport(bot))

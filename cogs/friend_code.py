@@ -85,6 +85,10 @@ class FriendCode(commands.Cog):
             embed.set_footer(text=f"Выполнил: {ctx.author}")
             await ctx.send(embed=embed)
 
+        @commands.Cog.listener()
+        async def on_ready(self):
+            print('Cog "FriendCode" loaded')
+
 
 async def setup(bot):
     await bot.add_cog(FriendCode(bot))
