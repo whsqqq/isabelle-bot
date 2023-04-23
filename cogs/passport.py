@@ -13,6 +13,10 @@ class Passport(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print('Cog "Passport" loaded')
+
     @commands.command(aliases=['p', 'ps'])
     async def passport(self, ctx, member: discord.Member = None):
         with open("text/bdays.json", "r") as f:
@@ -40,9 +44,7 @@ class Passport(commands.Cog):
         embed.set_thumbnail(url=user_avatar_url)
         await ctx.send(embed=embed)
 
-        @commands.Cog.listener()
-        async def on_ready(self):
-            print('Cog "Passport" loaded')
+
 
 
 async def setup(bot):
