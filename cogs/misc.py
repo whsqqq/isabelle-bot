@@ -13,7 +13,7 @@ class Miscellaneous(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.group(invoke_without_command=True)
+    @commands.hybrid_command(name='help', description='Показывает команды этого бота', with_app_command=True)
     async def help(self, ctx):
         embed = discord.Embed(title="Вот что у меня для вас есть!",
                               color=random.choice(config.colors))

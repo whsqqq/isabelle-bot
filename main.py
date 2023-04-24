@@ -112,7 +112,7 @@ async def send_daily_message():
 
 
 # Ping lol
-@bot.command()
+@bot.hybrid_command(name='ping', description='Показывает задержду между сервером бота', with_app_command=True)
 async def ping(ctx):
     latency = float('{:.3f}'.format(bot.latency))
     embed = discord.Embed(title="Pong! :flags:", description=f"Задержка - **{latency}**ms", color=0xff7a7a)
