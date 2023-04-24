@@ -8,15 +8,23 @@ from discord.ext import commands
 import re
 import os
 
-intents = discord.Intents.all()
-intents.members = True
-bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
+
+class Isabelle(commands.Bot):
+    def __init__(self):
+        super().__init__(command_prefix=".", intents=discord.Intents.all(), help_command=None,
+                         application_id=1097152527193096282)
+
+    async def setup_hook(self):
+        for filename in os.listdir('./cogs'):
+            if filename.endswith('.py'):
+                await self.load_extension(f'cogs.{filename[:-3]}')
+        await bot.tree.sync()
+
+    async def on_ready(self):
+        print(f'{self.user} has been connected')
 
 
-async def load():
-    for filename in os.listdir('./cogs'):
-        if filename.endswith('.py'):
-            await bot.load_extension(f'cogs.{filename[:-3]}')
+bot = Isabelle()
 
 
 # Loading data from JSON file with holiday phrases
@@ -117,11 +125,5 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=discord.Game('!help ☆'))
     bot.loop.create_task(send_daily_message())
 
-
-async def main():
-    await load()
-
-
-asyncio.run(main())
 
 bot.run(config.TOKEN)

@@ -7,18 +7,18 @@ from discord.ext import commands
 import re
 import os
 import config
+from discord import app_commands
 
 
 class Birthday(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print('Cog "Birthday" loaded')
-
-    @commands.group(name='bday', invoke_without_command=True)
+    @commands.hybrid_group(name='bday', invoke_without_command=True)
     async def bday(self, ctx):
+        user_id = str(ctx.author.id)
+        with open('text/bdays.json', 'r') as f:
+            bday_data = json.load(f)
         embed = discord.Embed(
             title="Неправильное действие, укажите, что конкретно вы хотите, `add` `edit` `delete`")
         embed.set_author(name="Что-то пошло не так...",
@@ -26,7 +26,7 @@ class Birthday(commands.Cog):
         embed.set_footer(text=f"Выполнил: {ctx.author}")
         await ctx.send(embed=embed)
 
-    @bday.command()
+    @bday.command(name='add', description='Добавить свой день рождения', with_app_command=True)
     async def add(self, ctx, birthday=None):
         user_id = str(ctx.author.id)
         with open('text/bdays.json', 'r') as f:
@@ -48,7 +48,7 @@ class Birthday(commands.Cog):
         embed.set_footer(text=f"Выполнил: {ctx.author}")
         await ctx.send(embed=embed)
 
-    @bday.command()
+    @bday.command(name='edit', description='Изменить свой день рождения', with_app_command=True)
     async def edit(self, ctx, birthday=None):
         user_id = str(ctx.author.id)
         with open('text/bdays.json', 'r') as f:
@@ -78,7 +78,7 @@ class Birthday(commands.Cog):
         embed.set_footer(text=f"Выполнил: {ctx.author}")
         await ctx.send(embed=embed)
 
-    @bday.command()
+    @bday.command(name='delete', description='Удалить свой день рождения', with_app_command=True)
     async def delete(self, ctx):
         user_id = str(ctx.author.id)
         with open('text/bdays.json', 'r') as f:
@@ -100,6 +100,10 @@ class Birthday(commands.Cog):
                          icon_url=config.NookIncPositive)
         embed.set_footer(text=f"Выполнил: {ctx.author}")
         await ctx.send(embed=embed)
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print(f'"Birthday" Loaded')
 
 
 async def setup(bot):
