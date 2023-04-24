@@ -1,12 +1,7 @@
 import random
-import asyncio
 import discord
-from discord import app_commands
 import json
-from datetime import datetime
 from discord.ext import commands
-import re
-import os
 import config
 
 
