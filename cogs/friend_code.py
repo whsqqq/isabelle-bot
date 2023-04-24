@@ -13,7 +13,7 @@ class FriendCode(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.group(name='sw', invoke_without_command=True)
+    @commands.hybrid_group(name='sw', invoke_without_command=True)
     async def sw(self, ctx):
         embed = discord.Embed(
             title="Неправильное действие, укажите, что конкретно вы хотите, `add` `edit` `delete`")
@@ -22,7 +22,7 @@ class FriendCode(commands.Cog):
         embed.set_footer(text=f"Выполнил: {ctx.author}")
         await ctx.send(embed=embed)
 
-    @sw.command()
+    @sw.command(name='add', description='Добавить свой код друга', with_app_command=True)
     async def add(self, ctx, friend_code=None):
         user_id = str(ctx.author.id)
         with open('text/sw.json', 'r') as f:
@@ -45,7 +45,7 @@ class FriendCode(commands.Cog):
         embed.set_footer(text=f"Выполнил: {ctx.author}")
         await ctx.send(embed=embed)
 
-    @sw.command()
+    @sw.command(name='edit', description='Изменить свой код друга', with_app_command=True)
     async def edit(self, ctx, friend_code=None):
         user_id = str(ctx.author.id)
         with open('text/sw.json', 'r') as f:
@@ -75,7 +75,7 @@ class FriendCode(commands.Cog):
         embed.set_footer(text=f"Выполнил: {ctx.author}")
         await ctx.send(embed=embed)
 
-    @sw.command()
+    @sw.command(name='delete', description='Удалить свой код друга', with_app_command=True)
     async def delete(self, ctx):
         user_id = str(ctx.author.id)
         with open('text/sw.json', 'r') as f:
@@ -99,7 +99,7 @@ class FriendCode(commands.Cog):
 
         @commands.Cog.listener()
         async def on_ready(self):
-            print('Cog "FriendCode" loaded')
+            print(f'"FriendCode" Loaded')
 
 
 async def setup(bot):

@@ -36,7 +36,8 @@ class Miscellaneous(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Cog "Misc" loaded')
+        print(f'"Misc" Loaded')
+
 
 async def setup(bot):
     await bot.add_cog(Miscellaneous(bot))

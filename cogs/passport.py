@@ -1,6 +1,7 @@
 import random
 import asyncio
 import discord
+from discord import app_commands
 import json
 from datetime import datetime
 from discord.ext import commands
@@ -15,9 +16,9 @@ class Passport(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Cog "Passport" loaded')
+        print(f'"Passport" Loaded')
 
-    @commands.command(aliases=['p', 'ps'])
+    @commands.hybrid_command(name='passport', description='Показать паспорт', with_app_command=True, aliases=['p', 'ps'])
     async def passport(self, ctx, member: discord.Member = None):
         with open("text/bdays.json", "r") as f:
             bdays = json.load(f)
@@ -45,7 +46,6 @@ class Passport(commands.Cog):
         await ctx.send(embed=embed)
 
 
-
-
 async def setup(bot):
     await bot.add_cog(Passport(bot))
+
