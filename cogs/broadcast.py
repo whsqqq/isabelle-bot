@@ -11,6 +11,10 @@ class Broadcast(commands.Cog):
         self.bot = bot
         self.check_holiday.start()
 
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print(f'"Broadcast" Loaded')
+
     @tasks.loop(count=1)
     async def check_holiday(self):
         now = datetime.datetime.now()
@@ -37,8 +41,6 @@ class Broadcast(commands.Cog):
             day = now.day
             month = now.month
             month_name = config.months[month]
-            with open("text/isabelle_random_phrases.txt", "r", encoding="utf-8") as f:
-                random_phrases = f.read().splitlines()
             await self.bot.get_channel(config.BROADCAST_CHANNEL_ID).send(f'{config.get_random_greeting()}Сегодня - {day} {month_name}. {config.get_random_message()} \n{message}')
 
     @check_holiday.before_loop

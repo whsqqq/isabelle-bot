@@ -9,6 +9,10 @@ class FriendCode(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print(f'"FriendCode" Loaded')
+
     @commands.hybrid_group(name='sw', invoke_without_command=True)
     async def sw(self, ctx):
         embed = discord.Embed(
@@ -92,10 +96,6 @@ class FriendCode(commands.Cog):
                          icon_url=config.NookIncPositive)
         embed.set_footer(text=f"Выполнил: {ctx.author}")
         await ctx.send(embed=embed)
-
-        @commands.Cog.listener()
-        async def on_ready(self):
-            print(f'"FriendCode" Loaded')
 
 
 async def setup(bot):

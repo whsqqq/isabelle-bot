@@ -1,11 +1,6 @@
-import random
-import asyncio
 import config
 import discord
-import json
-from datetime import datetime
 from discord.ext import commands
-import re
 import os
 
 
@@ -25,7 +20,7 @@ bot = Isabelle()
 
 
 # Ping lol
-@bot.hybrid_command(name='ping', description='Показывает задержду между сервером бота', with_app_command=True)
+@bot.hybrid_command(name='ping', description='Показывает задержку между сервером бота', with_app_command=True)
 async def ping(ctx):
     latency = float('{:.3f}'.format(bot.latency))
     embed = discord.Embed(title="Pong! :flags:", description=f"Задержка - **{latency}**ms", color=0xff7a7a)
