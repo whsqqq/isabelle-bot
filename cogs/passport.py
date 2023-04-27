@@ -36,7 +36,7 @@ class Passport(commands.Cog):
         else:
             embed.add_field(name="Код друга:", value="Не указано", inline=True)
         embed.add_field(name="Прилетел на остров Юки:", value=user.joined_at.strftime("%d/%m/%Y"), inline=True)
-        embed.add_field(name="Роли:", value=", ".join([role.mention for role in user.roles[1:]]), inline=True)
+        embed.add_field(name="Роли:", value=", ".join([role.mention for role in reversed(user.roles[1:])]), inline=True)
         embed.set_thumbnail(url=user_avatar_url)
         await ctx.send(embed=embed)
 
