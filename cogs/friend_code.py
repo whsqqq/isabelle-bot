@@ -26,7 +26,7 @@ class FriendCode(commands.Cog):
 
         if not friend_code or not isinstance(friend_code, str) or not re.match(config.sw_pattern, friend_code):
             embed = discord.Embed(
-                title="Неправильный формат данных. Учтите, что формат должен быть `XXXX-XXXX-XXXX`. Пример: `!sw add 1234-1234-1234`.")
+                title="Неправильный формат данных. Учтите, что формат должен быть `XXXX-XXXX-XXXX`. Пример: `!sw add 1234-1234-1234`")
             embed.set_author(name="Что-то пошло не так...",
                              icon_url=config.NookIncNegative)
             embed.set_footer(text=f"Выполнил: {ctx.author}")
@@ -48,7 +48,7 @@ class FriendCode(commands.Cog):
             sw_data = json.load(f)
         if not friend_code or not isinstance(friend_code, str) or not re.match(config.sw_pattern, friend_code):
             embed = discord.Embed(
-                title="Неправильный формат данных. Учтите, что формат должен быть `число.месяц`. Пример: `!sw edit 1234-1234-1234`.")
+                title="Неправильный формат данных. Учтите, что формат должен быть `число.месяц`. Пример: `!sw edit 1234-1234-1234`")
             embed.set_author(name="Что-то пошло не так...",
                              icon_url=config.NookIncNegative)
             embed.set_footer(text=f"Выполнил: {ctx.author}")

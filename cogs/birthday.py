@@ -28,7 +28,7 @@ class Birthday(commands.Cog):
             bday_data = json.load(f)
         if not birthday or not re.match(r'^\d{1,2}\.\d{1,2}$', birthday):
             embed = discord.Embed(
-                title="Неправильный формат данных. Учтите, что формат должен быть `число.месяц`. Пример: `!bday add 01.01`.")
+                title="Неправильный формат данных. Учтите, что формат должен быть `число.месяц`. Пример: `!bday add 01.01`")
             embed.set_author(name="Что-то пошло не так...",
                              icon_url=config.NookIncNegative)
             embed.set_footer(text=f"Выполнил: {ctx.author}")
@@ -50,7 +50,7 @@ class Birthday(commands.Cog):
             bday_data = json.load(f)
         if not birthday or not re.match(r'^\d{1,2}\.\d{1,2}$', birthday):
             embed = discord.Embed(
-                title="Неправильный формат данных. Учтите, что формат должен быть `число.месяц`. Пример: `!bday add 01.01`.")
+                title="Неправильный формат данных. Учтите, что формат должен быть `число.месяц`. Пример: `!bday add 01.01`")
             embed.set_author(name="Что-то пошло не так...",
                              icon_url=config.NookIncNegative)
             embed.set_footer(text=f"Выполнил: {ctx.author}")
