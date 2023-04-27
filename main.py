@@ -20,9 +20,6 @@ class Isabelle(commands.Bot):
                 await self.load_extension(f'cogs.{filename[:-3]}')
         await bot.tree.sync()
 
-    async def on_ready(self):
-        print(f'{self.user} has been connected')
-
 
 bot = Isabelle()
 
