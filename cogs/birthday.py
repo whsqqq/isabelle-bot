@@ -34,6 +34,14 @@ class Birthday(commands.Cog):
             embed.set_footer(text=f"Выполнил: {ctx.author}")
             await ctx.send(embed=embed)
             return
+        if user_id in bday_data:
+            embed = discord.Embed(
+                title="Вы уже указали свой день рождения! Чтобы изменить его, воспользуйтесь командой `/bday edit`")
+            embed.set_author(name="Что-то пошло не так...",
+                             icon_url=config.NookIncNegative)
+            embed.set_footer(text=f"Выполнил: {ctx.author}")
+            await ctx.send(embed=embed)
+            return
         bday_data[user_id] = birthday
         with open('text/bdays.json', 'w') as f:
             json.dump(bday_data, f)
