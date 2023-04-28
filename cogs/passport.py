@@ -26,8 +26,9 @@ class Passport(commands.Cog):
                          icon_url=config.NookLinkImg)
         embed.add_field(name="Имя пользователя:", value=f'{user.name}#{user.discriminator}', inline=True)
         if str(user.id) in bdays:
-
-            embed.add_field(name="Дата рождения:", value=bdays[str(user.id)], inline=True)
+            day, month_num = map(int, bdays[str(user.id)].split('.'))
+            month_name = config.months[month_num]
+            embed.add_field(name="Дата рождения:", value=f'{day} {month_name}', inline=True)
         else:
             embed.add_field(name="Дата Рождения", value="Не указано", inline=True)
         if str(user.id) in sw_data:
