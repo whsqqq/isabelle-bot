@@ -21,10 +21,13 @@ class Passport(commands.Cog):
             sw_data = json.load(f)
         user = ctx.author if not member else member
         user_avatar_url = user.avatar.url if user.avatar else user.default_avatar.url
-        embed = discord.Embed(title=f"Паспорт пользователя {user.display_name}", color=random.choice(config.colors))
+        embed = discord.Embed(title=f"Паспорт пользователя `{user.display_name}`", color=random.choice(config.colors))
         embed.set_author(name="NookLink",
                          icon_url=config.NookLinkImg)
-        embed.add_field(name="Имя пользователя:", value=f'{user.name}#{user.discriminator}', inline=True)
+        if user.discriminator == '0':
+            embed.add_field(name="Имя пользователя:", value=f'@{user.name}', inline=True)
+        else:
+            embed.add_field(name="Имя пользователя:", value=f'{user.name}#{user.discriminator}', inline=True)
         if str(user.id) in bdays:
             day, month_num = map(int, bdays[str(user.id)].split('.'))
             month_name = config.months[month_num]
